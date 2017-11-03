@@ -1,35 +1,20 @@
 (use '[clojure.string :only (split triml)])
-(defn helper
-  [tlist len actual]
-  (if (even? len)
-    (cond
-      (= (first tlist) (/ len 2)) (/ (+ actual (inc actual)))
-      )
-    (if (> (first tlist) (int (/ len 2)))
-      actual
-      (recur (cons (reduce + (take 2 tlist)) (rest tlist)) len (inc actual))))
 
-  )
 (defn median
   [x]
-  (let [freq (into (sorted-map) (frequencies x))]
-    )
-  (let [ ((comp vec sort) (drop-last x)) len (count sorted)]
-    (if (even? len)
-      (/ (+ (sorted (int (/ len 2))) (sorted (inc (int (/ len 2))))) 2)
-      (sorted (int (/ len 2)))))
-  )
+  (let [freq (into (sorted-map) (frequencies x)) len (count x)]
+    (let [freq-vec (vec (flatten (map #(repeat (get freq % 0) %) (range 201))))]
+      (if (odd? len)
+        (get freq-vec (int (/ len 2)))
+        (/ (+ (get freq-vec (/ len 2)) (get freq-vec (inc (/ len 2)))) 2))
+      )))
 (defn notif
-  [lis]
-  (let [tvec (vec lis)
-        len (count tvec)]
-    (if (>= (tvec (dec len)) (* 2 (median (butlast tvec))))
+  [lvec]
+  (let [tvec (subvec lvec 0 (dec (count lvec))) spend (get lvec (dec (count lvec)))]
+    (if (>= spend (* 2 (median tvec)))
       true
-      false))
-    )
-(defn calc
-  [tvec d i j buffer]
-  )
+      false)
+    ))
 (
   let [
        n_temp (read-line)
@@ -44,6 +29,15 @@
          expenditure_t (split expenditure_temp #"\s+")
          expenditure (map #(Integer/parseInt %) expenditure_t)
          ]
-        (time (println (count (filter true? (map notif (partition (inc d) 1 expenditure))))))
+    (let [v_exp (vec expenditure)]
+      (let [result (loop [i 0 ncount 0]
+                     (if (> i (- n (inc d)))
+                       ncount
+                       (if (notif (subvec v_exp i (+ i (inc d))))
+                         (recur (inc i) (inc ncount))
+                         (recur (inc i) ncount)))
+                     )
+            ]
+        (println result)))
     )
   )
