@@ -17,6 +17,26 @@
         (let [indexed (map #(list %1 %2) s (range))]
           (let [freq  (frequencies s)]
             (let [[k v] (first (filter (fn [[k v]] (odd? v)) freq))]
+              ;(println k v)
+              (let [
+                    filtered (filter #(= k (first %)) indexed)
+                    f2 (map second filtered)
+                    v (vec s)
+                    len (count s)
+                    ]
+                ;(println filtered)
+                ;(println "f2" f2)
+                ;(println filtered)
+                (loop [[x & ll] f2]
+                  ;(println x)
+                  (if (nil? x)
+                    (println -1)
+                    (if (not= (get v x) (get v (- (dec len) x)))
+                      (println x)
+                      (recur ll))
+                    )
+                  )
+                )
               )
             )
 
