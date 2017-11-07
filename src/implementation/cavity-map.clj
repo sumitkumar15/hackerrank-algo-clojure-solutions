@@ -1,3 +1,4 @@
+; Incorrect
 (use '[clojure.string :only (split triml)])
 (defn calc
   [[f m l & remm] buffer]

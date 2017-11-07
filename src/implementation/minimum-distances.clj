@@ -12,6 +12,16 @@
          ]
     (let [tr (map #(list %1 %2) A (range))]
       (let [sorted (sort-by first tr)]
+        (loop [a sorted minimum Integer/MAX_VALUE]
+          (if (empty? a)
+            minimum
+            (let [fil (sort-by second (filter #(= (first (first a)) (first %)) a))]
+              (if (>= (count fil) 2)
+                (recur (drop (count fil) a) (min minimum (- (second (second fil)) (second (first fil)))))
+                (recur (drop (count fil) a) minimum))
+              )
+            )
+          )
         ))
     )
 
