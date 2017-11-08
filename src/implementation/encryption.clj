@@ -1,5 +1,5 @@
 (use '[clojure.string :only (split triml)])
-(use '[clojure.string])
+(require '(clojure.string))
 (defn l-print
   [pr ll]
   ;(println ll)

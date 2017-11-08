@@ -1,5 +1,7 @@
 (use '[clojure.string :only (split triml)])
-(defn djkstra
+(defn dijkstra
+  [graph dist]
+
   )
 (defn make-graph
   [nodes arr]
