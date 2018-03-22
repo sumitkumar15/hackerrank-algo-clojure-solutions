@@ -11,7 +11,7 @@ process.stdin.on('data', function (data) {
 
 process.stdin.on('end', function () {
     input_stdin_array = input_stdin.split("\n");
-    main();    
+    main();
 });
 
 function readLine() {
@@ -19,7 +19,7 @@ function readLine() {
 }
 
 /////////////// ignore above this line ////////////////////
-function lcm (a, b) {
+function lcm(a, b) {
     let greater = a > b ? a : b
     let small = a < b ? a : b
     let k = greater
@@ -37,7 +37,6 @@ function getTotalX(a, b) {
     for (let d = lc; d <= s_b; d += lc) {
         dividers.push(d)
     }
-    //console.log(dividers)
     return dividers.filter(x => b.every(f => f % x === 0)).length
 }
 
